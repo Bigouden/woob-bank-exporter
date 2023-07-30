@@ -162,6 +162,7 @@ class WoobBankCollector:
         metrics = []
         for account in self.woob.iter_accounts():
             labels = {}
+            labels["id"] = str(account.id)
             for key in account.__dict__["_fields"].keys():
                 if key not in [metric["name"] for metric in METRICS] + IGNORE_KEYS:
                     value = getattr(account, key)
