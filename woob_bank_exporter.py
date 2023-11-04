@@ -132,7 +132,7 @@ except ValueError:
 # Check Mandatory Environment Variable
 for var in MANDATORY_ENV_VARS:
     if var not in os.environ:
-        logging.critical("%s environement variable must be set !", var)
+        logging.critical("%s environment variable must be set !", var)
         os._exit(1)
 
 WOOB_BANK_MODULE = os.environ.get("WOOB_BANK_MODULE")
