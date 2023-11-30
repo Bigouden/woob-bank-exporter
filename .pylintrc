@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=import-error,protected-access
+disable=import-error,protected-access,too-many-branches
