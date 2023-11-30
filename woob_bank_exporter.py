@@ -9,7 +9,7 @@ import os
 import sys
 import threading
 import time
-from datetime import datetime, timedelta
+from datetime import datetime
 from typing import Callable
 from wsgiref.simple_server import make_server
 
@@ -205,8 +205,12 @@ class WoobBankCollector:
     """Woob Bank Collector Class"""
 
     def __init__(self):
+        self.woob = Woob()
+
+    def get_metrics(self):
+        """Retrieve Prometheus Metrics"""
         try:
-            self.woob = Woob().load_backend(
+            self.woob.load_backend(
                 WOOB_BANK_MODULE,
                 WOOB_BANK_NAME,
                 params={"login": WOOB_BANK_LOGIN, "password": WOOB_BANK_PASSWORD},
@@ -219,16 +223,6 @@ class WoobBankCollector:
             logging.error("Invalid Credentials !")
             os._exit(1)
 
-        self.last_connection = datetime.now()
-
-    def get_metrics(self):
-        """Retrieve Prometheus Metrics"""
-        if datetime.now() >= self.last_connection + timedelta(hours=1):
-            logging.info("Logout from %s", WOOB_BANK_MODULE)
-            self.woob.browser.do_logout()
-            logging.info("Login to %s", WOOB_BANK_MODULE)
-            self.woob.browser.do_login()
-            self.last_connection = datetime.now()
         metrics = []
         for account in self.woob.iter_accounts():
             labels = {}
@@ -264,6 +258,7 @@ class WoobBankCollector:
                     continue
 
         logging.info("Metrics : %s", metrics)
+        self.woob.deinit()
         return metrics
 
     def collect(self):
