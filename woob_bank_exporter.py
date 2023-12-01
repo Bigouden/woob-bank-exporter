@@ -210,6 +210,7 @@ class WoobBankCollector:
     def get_metrics(self):
         """Retrieve Prometheus Metrics"""
         try:
+            self.woob.deinit()
             self.woob.load_backend(
                 WOOB_BANK_MODULE,
                 WOOB_BANK_NAME,
@@ -258,7 +259,6 @@ class WoobBankCollector:
                     continue
 
         logging.info("Metrics : %s", metrics)
-        self.woob.deinit()
         return metrics
 
     def collect(self):
