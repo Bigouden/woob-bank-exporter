@@ -1,4 +1,5 @@
 prometheus_client
 python-jose
 pytz
+setuptools
 woob
