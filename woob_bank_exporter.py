@@ -224,6 +224,9 @@ class WoobBankCollector:
             logging.error("Invalid Credentials !")
             os._exit(1)
 
+        # First iter_accounts() call method to ignore HTTP 404 accounts
+        _ = self.woob.iter_accounts()
+
         metrics = []
         for account in self.woob.iter_accounts():
             labels = {}
