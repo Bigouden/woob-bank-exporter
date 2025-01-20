@@ -1,5 +1,5 @@
 prometheus_client
-python-jose
+python-jose>=3.3.0
 pytz
-setuptools
+setuptools>=70.0
 woob
