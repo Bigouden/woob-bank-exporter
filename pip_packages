@@ -1,5 +1,5 @@
-prometheus_client
-python-jose>=3.3.0
-pytz
+prometheus_client>=0.21.1
+python-jose>=3.4.0
+pytz>=25.0.1
 setuptools>=70.0
-woob
+woob>=3.7
